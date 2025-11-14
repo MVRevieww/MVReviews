@@ -1,10 +1,12 @@
 import React from "react";
+import { getMyReviews } from "../../Services/movie";
 
-function MyReviews() {const [movies, setmovies] = useState([]);
+function MyReviews() {
+  const [movies, setmovies] = useState([]);
 
   useEffect(() => {
     async function temp() {
-      const response = await getmovies();
+      const response = await getMyReviews();
       if (response["status"] == "success") {
         console.log("movies Fetched Successfully");
         setmovies(response["data"]);

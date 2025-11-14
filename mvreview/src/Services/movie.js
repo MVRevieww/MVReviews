@@ -27,7 +27,7 @@ export async function getMyReviews(id) {
     const body = {
       user_id: id,
     };
-    const response = await axios.get(url);
+    const response = await axios.get(url, body);
     return response.data;
   } catch (error) {
     console.log(error);
