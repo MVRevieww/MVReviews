@@ -30,7 +30,7 @@ export async function register(
 
 export async function login(email, password) {
   try {
-    const url = `${config.server}/user/signin`;
+    const url = `${config.server}/user/login`;
     const body = { email, password };
 
     const response = await axios.post(url, body);

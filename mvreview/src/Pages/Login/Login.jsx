@@ -14,6 +14,7 @@ function Login() {
 
   const onLogin = async () => {
     const response = await login(email, password);
+    console.log(response["status"]);
     if (response["status"] == "success") {
       //   toast.success("login successful");
 

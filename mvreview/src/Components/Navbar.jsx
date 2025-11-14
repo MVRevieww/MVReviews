@@ -9,8 +9,8 @@ function Navbar() {
           MVR
         </Link>
 
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
+        <div className="collapse navbar-collapse d-flex" id="navbarNav">
+          <ul className="navbar-nav justify-content-between">
             <li className="nav-item">
               <Link className="nav-link" aria-current="page" to="/home/movies">
                 All Movies
