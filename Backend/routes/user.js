@@ -6,56 +6,58 @@ const pool = require('../db/db')
 
 const router = express.Router();
 
-router.post('/login', (req,res)=>{
-    res.send("Hii from login route ")
-    const{mobile,email, password} = req.body;
+router.post('/login', (req, res) => {
 
-    if(mobile != null){
-        const sql = `select mobile,password from users where mobile = ? AND password = ?;`
-    pool.query(
-        sql,[ mobile, password ],(error,data)=>{
-            if(data){
+    //implement login with email also !!!!
 
-                res.send(result.createSuccessResult("Login Successful "))
-            }else{
-                res.send(result.createErrorResult('Invalid email or password'))
-            }
-            res.send(result.createResult(error, data))
+    const { mobile, password } = req.body;
+
+    const sql = `SELECT mobile, password FROM users WHERE mobile = ? AND password = ?`;
+
+    pool.query(sql, [mobile, password], (error, data) => {
+
+        if (error) {
+            return res.send(result.createErrorResult("Database error"));
         }
-    )
-    }
-    else{
-        const sql = `select email,password from users where email = ? AND password = ?;`
-    pool.query(
-        sql,[ email, password ],(error,data)=>{
-            if(data){
 
-                res.send(result.createSuccessResult("Login Successful "))
-            }else{
-                res.send(result.createErrorResult('Invalid email or password'))
-            }
-            res.send(result.createResult(error, data))
+        if (data.length > 0) {
+            return res.send(result.createSuccessResult("Login Successful"));
+        } else {
+            return res.send(result.createErrorResult("Invalid mobile or password"));
         }
-    )
-    }
 
-    
+    });
+});
 
-})
 
 router.post('/signup', (req,res)=>{
 
-    // res.send("Hii from sign route ")
     const{first_name, last_name, email, password, mobile, birth} = req.body;
 
+    
     const sql = `INSERT INTO users(first_name, last_name, email, password, mobile, birth ) VALUES(?,?,?,?,?,?)`
-  pool.query(
-    sql,
-    [first_name, last_name, email, password, mobile, birth],
-    (error, data) => {
-      res.send(result.createResult(error, data))
+    pool.query(sql, [first_name, last_name, email, password, mobile, birth], (error, data) => {
+       res.send(result.createResult(error, data))
     }
   )
+})
+
+router.post('/EditProfile', (req,res)=>{
+    const{id, first_name, last_name, email, mobile, birth} = req.body;
+    const sql = `UPDATE users SET first_name = ?, last_name = ?,email = ?, mobile = ?,birth = ? WHERE id = ?;`
+    pool.query(sql, [first_name, last_name, email, mobile, birth,id], (error, data) => {
+       res.send(result.createResult(error, data))
+    }
+  )
+})
+
+router.post('/ChangePassword', (req,res)=>{
+    const{id, newPassword } = req.body;
+
+    const sql = `UPDATE users SET Password = ? WHERE id = ?;`
+    pool.query(sql, [newPassword, id], (error, data) => {
+       res.send(result.createResult(error, data))
+    })
 })
 
 module.exports = router
