@@ -1,19 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../Login/login.css";
+import { register } from "../../Services/user";
 
 function SignUp() {
   const navigate = useNavigate();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [birth, setBirth] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const onSignUp = async () => {
-    // const response = await login(email, password);
+    // if (firstName.length == 0) {
+    //   toast.warning("please enter first name");
+    // } else if (lastName.length == 0) {
+    //   toast.warning("please enter last name");
+    // } else if (email.length == 0) {
+    //   toast.warning("please enter email");
+    // } else if (phone.length == 0) {
+    //   toast.warning("please enter phone number");
+    // } else if (password.length == 0) {
+    //   toast.warning("please enter password");
+    // } else if (confirmPassword.length == 0) {
+    //   toast.warning("please confirm password");
+    // } else if (password != confirmPassword) {
+    //   toast.warning("password does not match");
+    // } else {
+    const response = await register(
+      firstName,
+      lastName,
+      email,
+      password,
+      phone,
+      birth
+    );
+    if (response["status"] === "success") {
+      navigate("/login");
+    }
     // if (response["status"] == "success") {
     //   toast.success("login successful");
 
     //   localStorage.setItem("token", response["data"]["token"]);
 
     // }
-    navigate("/home");
   };
   return (
     <div className="container">
@@ -26,7 +58,7 @@ function SignUp() {
             <label>First Name</label>
             <input
               onChange={(e) => {
-                setEmail(e.target.value);
+                setFirstName(e.target.value);
               }}
               type="text"
               className="form-control"
@@ -36,7 +68,7 @@ function SignUp() {
             <label>Last Name</label>
             <input
               onChange={(e) => {
-                setEmail(e.target.value);
+                setLastName(e.target.value);
               }}
               type="text"
               className="form-control"
@@ -58,7 +90,7 @@ function SignUp() {
           <label>Mobile Number</label>
           <input
             onChange={(e) => {
-              setEmail(e.target.value);
+              setPhone(e.target.value);
             }}
             type="text"
             className="form-control"
@@ -68,7 +100,7 @@ function SignUp() {
           <label>Date Of Birth</label>
           <input
             onChange={(e) => {
-              setEmail(e.target.value);
+              setBirth(e.target.value);
             }}
             type="date"
             className="form-control"
@@ -89,7 +121,7 @@ function SignUp() {
           <label>Confirm Password</label>
           <input
             onChange={(e) => {
-              setPassword(e.target.value);
+              setConfirmPassword(e.target.value);
             }}
             type="password"
             className="form-control"

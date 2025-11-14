@@ -1,20 +1,26 @@
 import React from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import "./login.css";
 
+import { login } from "../../Services/user";
+
 function Login() {
   const navigate = useNavigate();
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const onLogin = async () => {
-    // const response = await login(email, password);
-    // if (response["status"] == "success") {
-    //   toast.success("login successful");
+    const response = await login(email, password);
+    if (response["status"] == "success") {
+      //   toast.success("login successful");
 
-    //   localStorage.setItem("token", response["data"]["token"]);
+      //   localStorage.setItem("token", response["data"]["token"]);
 
-    // }
-    navigate("/home");
+      navigate("/home");
+    }
   };
 
   return (
