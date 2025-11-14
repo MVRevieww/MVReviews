@@ -14,7 +14,11 @@ function Login() {
 
   const onLogin = async () => {
     const response = await login(email, password);
+<<<<<<< Updated upstream
     console.log(response["status"]);
+=======
+    console.log(response);
+>>>>>>> Stashed changes
     if (response["status"] == "success") {
       //   toast.success("login successful");
 

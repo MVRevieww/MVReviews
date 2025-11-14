@@ -10,18 +10,14 @@ router.post('/login', (req, res) => {
 
     //implement login with email also !!!!
 
-    const { mobile, password } = req.body;
 
-    const sql = `SELECT mobile, password FROM users WHERE mobile = ? AND password = ?`;
 
-    pool.query(sql, [mobile, password], (error, data) => {
 
         if (error) {
             return res.send(result.createErrorResult("Database error"));
         }
 
         if (data.length > 0) {
-            return res.send(result.createSuccessResult("Login Successful"));
         } else {
             return res.send(result.createErrorResult("Invalid mobile or password"));
         }
