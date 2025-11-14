@@ -10,9 +10,16 @@ export async function register(
   birth
 ) {
   try {
-    const url = `${config.server}/user/register`;
+    const url = `${config.server}/user/signup`;
 
-    const body = { firstName, lastName, email, password, phone, birth };
+    const body = {
+      first_name: firstName,
+      last_name: lastName,
+      email,
+      password,
+      mobile: phone,
+      birth,
+    };
 
     const response = await axios.post(url, body);
     return response.data;
