@@ -13,7 +13,7 @@ export async function getmovies() {
 }
 export async function getAllReviews() {
   try {
-    const url = `${config.server}/user/home`;
+    const url = `${config.server}/user/allReviews`;
 
     const response = await axios.get(url);
     return response.data;
@@ -23,7 +23,7 @@ export async function getAllReviews() {
 }
 export async function getMyReviews(id) {
   try {
-    const url = `${config.server}/user/home`;
+    const url = `${config.server}/user/reviewByid`;
     const body = {
       user_id: id,
     };
